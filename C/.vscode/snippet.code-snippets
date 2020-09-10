@@ -17,5 +17,12 @@
 		  "printf(\"${1:input}\",)"
 		],
 		"description": "print"
+	},
+	"scan": {
+		"prefix": "scan",
+		"body": [
+		  "scanf(\"${1:input}\",)"
+		],
+		"description": "scan"
 	}
 }
