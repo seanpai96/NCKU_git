@@ -5,8 +5,8 @@ void prime(int a){
         printf("1 ");
         return;
     }
-    for(int i=2;i*i<a;i++) 
-        if(a%i == 0) 
+    for(int i=2;i*i<a;i++)
+        if(a%i == 0)
             return;
     printf("%d ", a);
     return;
