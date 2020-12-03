@@ -1,10 +1,15 @@
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class homework3 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        //input team
+        String s = homework3.class.getClass().getResource("map.txt").getPath();
+        FileReader fr = new FileReader(s);
+        fr.close();
+        // input team
         System.out.println("first team");
         String team1Str = scanner.nextLine();
         System.out.println("first team's effect");
@@ -29,8 +34,7 @@ public class homework3 {
 
         while (true) {
 
-            //if (time % 5 == 0) {
-            if(true){
+            if (time % 5 == 0) {
                 String team1Effect, team2Effect;
                 if (team1.isFreeze && team1.isGravitize) {
                     team1Effect = "freezed and gravitized";
@@ -55,73 +59,72 @@ public class homework3 {
                         team1Now + 1, team1.player[team1Now], team1Effect, distance1));
                 System.out.println(String.format("team2 now: number %d, type: %s, effect: %s, distance: %d",
                         team2Now + 1, team2.player[team2Now], team2Effect, distance2));
-                
-                if (time % 5 == 0) {
-                    while (true) {
-                        System.out.println(String.format(
-                                "team1 you have %d freeze and %d gravitize, please choose your effect to use",
-                                team1.freeze, team1.gravatize));
-                        String[] team1Use = scanner.nextLine().split("-");
-                        if (Integer.parseInt(team1Use[0]) > 1 || Integer.parseInt(team1Use[0]) > team1.freeze
-                                || Integer.parseInt(team1Use[1]) > team1.gravatize) {
-                            System.out.println("error");
-                            continue;
-                        }
 
-                        if (Integer.parseInt(team1Use[0]) == 1) {
-                            if (team2.player[team2Now].equals("str")) {
-                                team2.freezeSec = 5;
-                            } else {
-                                team2.freezeSec = 3;
-                            }
-                            team2.isFreeze = true;
-                            team1.freeze--;
-                        }
-
-                        if (Integer.parseInt(team1Use[1]) == 1) {
-                            if (team2.player[team2Now].equals("dex")) {
-                                team2.isGravitize = true;
-                            }
-                            team1.gravatize--;
-                        }
-
-                        break;
+                while (true) {
+                    System.out.println(
+                            String.format("team1 you have %d freeze and %d gravitize, please choose your effect to use",
+                                    team1.freeze, team1.gravatize));
+                    String[] team1Use = scanner.nextLine().split("-");
+                    if (Integer.parseInt(team1Use[0]) > 1 || Integer.parseInt(team1Use[0]) > team1.freeze
+                            || Integer.parseInt(team1Use[1]) > team1.gravatize) {
+                        System.out.println("error");
+                        continue;
                     }
 
-                    while (true) {
-                        System.out.println(String.format(
-                                "team2 you have %d freeze and %d gravitize, please choose your effect to use",
-                                team2.freeze, team2.gravatize));
-                        String[] team2Use = scanner.nextLine().split("-");
-                        if (Integer.parseInt(team2Use[0]) > 1 || Integer.parseInt(team2Use[0]) > team2.freeze
-                                || Integer.parseInt(team2Use[1]) > team2.gravatize) {
-                            System.out.println("error");
-                            continue;
+                    if (Integer.parseInt(team1Use[0]) == 1) {
+                        if (team2.player[team2Now].equals("str")) {
+                            team2.freezeSec = 5;
+                        } else {
+                            team2.freezeSec = 3;
                         }
-
-                        if (Integer.parseInt(team2Use[0]) == 1) {
-                            if (team1.player[team1Now].equals("str")) {
-                                team1.freezeSec = 5;
-                            } else {
-                                team1.freezeSec = 3;
-                            }
-                            team1.isFreeze = true;
-                            team2.freeze--;
-                        }
-
-                        if (Integer.parseInt(team2Use[1]) == 1) {
-                            if (team1.player[team1Now].equals("dex")) {
-                                team1.isGravitize = true;
-                            }
-                            team2.gravatize--;
-                        }
-
-                        break;
+                        team2.isFreeze = true;
+                        team1.freeze--;
                     }
+
+                    if (Integer.parseInt(team1Use[1]) == 1) {
+                        if (team2.player[team2Now].equals("dex")) {
+                            team2.isGravitize = true;
+                        }
+                        team1.gravatize--;
+                    }
+
+                    break;
                 }
+
+                while (true) {
+                    System.out.println(
+                            String.format("team2 you have %d freeze and %d gravitize, please choose your effect to use",
+                                    team2.freeze, team2.gravatize));
+                    String[] team2Use = scanner.nextLine().split("-");
+                    if (Integer.parseInt(team2Use[0]) > 1 || Integer.parseInt(team2Use[0]) > team2.freeze
+                            || Integer.parseInt(team2Use[1]) > team2.gravatize) {
+                        System.out.println("error");
+                        continue;
+                    }
+
+                    if (Integer.parseInt(team2Use[0]) == 1) {
+                        if (team1.player[team1Now].equals("str")) {
+                            team1.freezeSec = 5;
+                        } else {
+                            team1.freezeSec = 3;
+                        }
+                        team1.isFreeze = true;
+                        team2.freeze--;
+                    }
+
+                    if (Integer.parseInt(team2Use[1]) == 1) {
+                        if (team1.player[team1Now].equals("dex")) {
+                            team1.isGravitize = true;
+                        }
+                        team2.gravatize--;
+                    }
+
+                    break;
+                }
+
             }
 
-            //team1
+            // team1
             if (team1.player[team1Now].equals("dex")) {
                 if (team1.isFreeze) {
                     team1.freezeSec--;
@@ -139,7 +142,7 @@ public class homework3 {
                         distance1 = 0;
                         team1Now++;
                         if (team1Now == 5) {
-                            System.out.println("team1 won");
+                            System.out.println(String.format("team1 won in %d seconds", time));
                             break;
                         }
                     }
@@ -157,14 +160,14 @@ public class homework3 {
                         distance1 = 0;
                         team1Now++;
                         if (team1Now == 5) {
-                            System.out.println("team1 won");
+                            System.out.println(String.format("team1 won in %d seconds", time));
                             break;
                         }
                     }
                 }
             }
 
-            //team2
+            // team2
             if (team2.player[team2Now].equals("dex")) {
                 if (team2.isFreeze) {
                     team2.freezeSec--;
@@ -182,7 +185,7 @@ public class homework3 {
                         distance2 = 0;
                         team2Now++;
                         if (team2Now == 5) {
-                            System.out.println("team2 won");
+                            System.out.println(String.format("team2 won in %d seconds", time));
                             break;
                         }
                     }
@@ -200,7 +203,7 @@ public class homework3 {
                         distance2 = 0;
                         team2Now++;
                         if (team2Now == 5) {
-                            System.out.println("team2 won");
+                            System.out.println(String.format("team2 won in %d seconds", time));
                             break;
                         }
                     }
@@ -211,14 +214,14 @@ public class homework3 {
         }
         scanner.close();
     }
-    
+
     public static TeamData resetData(TeamData t) {
         t.isFreeze = false;
         t.freezeSec = 0;
         t.isGravitize = false;
         return t;
     }
-    
+
     public static class TeamData {
         String[] player;
         int freeze;
@@ -233,4 +236,6 @@ public class homework3 {
             this.player = p;
         }
     }
+
+    
 }
