@@ -51,10 +51,29 @@ void print_stack(struct head *stack_p) {
 // Your code goes here
 
 void push(struct head *stack_p, int data) {     // create an element and push it to the top of the stack
-    stack_p->size++;
-    
+    stack_p->size += 1;
+    struct head *curr = stack_p;
+    while (curr->next){ 
+        curr = curr->next;
+    }
+
+    struct element *newEle = malloc(sizeof(struct element));
+    newEle->data = data;
+    newEle->next = NULL;
+
+    curr->next = newEle;
+    stack_p->top = newEle;
 }
 
 struct element* pop(struct head *stack_p) {     // return the element which is popped from the stack
+    stack_p->size -= 1;
+    struct head *curr = stack_p;
+    struct element *ret = stack_p->top;
+    while (curr->next != ret) {
+        curr = curr->next;
+    }
 
+    curr->next = NULL;
+    stack_p->top = curr;
+    return ret;
 }
