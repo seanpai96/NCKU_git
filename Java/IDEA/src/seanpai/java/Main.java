@@ -1,15 +1,21 @@
 package seanpai.java;
 
 
-import java.util.Random;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Random rand = new Random();
-        for(int i=0;i<100;i++){
-            int x = rand.nextInt(40);
-            System.out.println(x);
+        File file = new File("test.txt");
+        try {
+            Scanner sc = new Scanner(file);
+            System.out.println(sc.nextLine());
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
         }
+
+
     }
 }
