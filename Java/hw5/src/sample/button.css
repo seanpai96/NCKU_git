@@ -1,0 +1,17 @@
+.button {
+    -fx-background-radius: 30px;
+    -fx-font-size: 25px;
+    -fx-alignment: center;
+}
+
+.light-grey-button {
+    -fx-background-color: #4c4c4c;
+}
+
+.orange-button{
+    -fx-background-color: orange;
+}
+
+.grey-button{
+    -fx-background-color: #9e9e9e;
+}
