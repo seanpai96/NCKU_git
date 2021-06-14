@@ -58,3 +58,4 @@ dkms.conf
 *.exe
 
 .DS_Store
+*.idea/
