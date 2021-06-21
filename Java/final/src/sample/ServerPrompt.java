@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class ServerPrompt implements Initializable {
 
     Server serv;
     MultiPlayer multiPlayer;
+    String port;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -30,9 +32,26 @@ public class ServerPrompt implements Initializable {
         serv = multiPlayer.server;
         serv.start();
         String ip = serv.getIP();
-        String port = serv.getPort();
+        port = serv.getPort();
         String info = "請以\n" + ip + ":" + port + "\n加入";
         infoLabel.setText(info);
+        cancelButton.setOnMouseClicked(this::cancel);
+    }
+
+    public void cancel(MouseEvent event){
+        Client cli = multiPlayer.client;
+        cli.stopSelf(Integer.parseInt(port));
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource( "sample.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void nextScene(){

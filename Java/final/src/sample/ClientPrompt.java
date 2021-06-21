@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 
 public class ClientPrompt implements Initializable {
     @FXML
-    Button joinButton;
+    Button joinButton, cancelButton;
     @FXML
     TextField ipField, portField;
 
@@ -52,5 +53,22 @@ public class ClientPrompt implements Initializable {
                 }
             }
         });
+        cancelButton.setOnMouseClicked(this::cancel);
+    }
+
+    private void cancel(MouseEvent event){
+        Client cli = multiPlayer.client;
+        cli.stopSelf(Integer.parseInt(multiPlayer.server.getPort()));
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource( "sample.fxml"));
+            Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setResizable(false);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

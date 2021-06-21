@@ -32,9 +32,7 @@ public class Server extends Thread {
         return "error";
     }
 
-    public void createServer() {
 
-    }
 
     @Override
     public void run() {
@@ -46,12 +44,14 @@ public class Server extends Thread {
             while (true) {
                 String clientText = clientInput.readLine();
                 System.out.println("Received" + clientText);
-                main.incomingMessage(clientText);
                 if (clientText.equals("seeya")) {
                     ongoingConnection = false;
                     break;
                 }
+                main.incomingMessage(clientText);
             }
+            connectionSock.close();
+            serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

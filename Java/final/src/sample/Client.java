@@ -34,4 +34,24 @@ public class Client extends Thread{
             }
         }
     }
+
+    public void stopClient(){
+        try {
+            sendMessage("seeya");
+            cSock.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopSelf(int port){
+        try {
+            cSock = new Socket("localhost", port);
+            serverOutput = new DataOutputStream(cSock.getOutputStream());
+            sendMessage("seeya");
+            cSock.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

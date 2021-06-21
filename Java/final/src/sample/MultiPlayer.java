@@ -171,6 +171,7 @@ public class MultiPlayer implements Initializable {
                         }else{
                             turnLabel.setText("You Lose!");
                         }
+                        client.stopClient();
                     }
                 });
 
@@ -336,4 +337,6 @@ public class MultiPlayer implements Initializable {
             return null;
         }
     }
+
+
 }
